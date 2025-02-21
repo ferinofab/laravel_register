@@ -43,6 +43,11 @@ class RegisterController extends Controller
 
     public function signin(Request $request)
     {
+       $validate = $request->validate([
+            'number' => 'required',
+            'login' => 'required',
+            'password' => 'required'
+        ]);
         $register = Register::where('number', $request['number'])->first();
         if($register) {
             if($register->login == $request['login'] && $register->password == $request['password']) {
@@ -53,11 +58,7 @@ class RegisterController extends Controller
             return redirect()->back();
         }
 
-        $validate = $request->validate([
-            'number' => 'required',
-            'login' => 'required',
-            'password' => 'required'
-        ]);
+        
 
 
     }
